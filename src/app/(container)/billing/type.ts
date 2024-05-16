@@ -4,3 +4,5 @@ export type BillingForm = {
   phone: string;
   mail: string;
 };
+
+export type BillingTable = BillingForm;

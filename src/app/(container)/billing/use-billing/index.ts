@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { BillingForm } from "../type";
+import { BillingForm, BillingTable } from "../type";
 import {
   CsInputTextItem,
   CsView,
@@ -26,6 +26,20 @@ export const useBilling = () => {
     phone: useCsTextAreaItem("電話番号", useInit("")),
     mail: useCsTextAreaItem("メールアドレス", useInit("")),
   });
+
+  const [table, setTable] = useState<BillingTable[]>([]);
+
+  const handleBillingId = (index: number, value: BillingForm) => {
+    setTable(
+      table.map((t, i) => {
+        if (i === index) {
+          return;
+        } else {
+          return t;
+        }
+      })
+    );
+  };
 
   return { view };
 };
