@@ -1,14 +1,13 @@
+import { MxTableLayout } from "@/ui/view-table";
 import { BILLING_ID } from "../constants";
+import { useBilling } from "../use-billing";
 
-type Props = {
-  billingId?: string;
-};
+type Props = ReturnType<typeof useBilling>;
 
-export const BillingTable = ({ billingId }: Props) => {
+export const BillingTable = ({ view }: Props) => {
   return (
     <>
-      <div>Table ${billingId}</div>
-      <div>Table ${BILLING_ID}</div>
+      <MxTableLayout view={view} colSize={4} />
     </>
   );
 };

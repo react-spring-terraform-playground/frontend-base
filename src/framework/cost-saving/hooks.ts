@@ -1,3 +1,5 @@
+"use client";
+
 import {
   CsCheckBoxItem,
   CsInputDateItem,
@@ -13,11 +15,7 @@ import {
   CsSelectBoxItem,
   CsSelectNumberBoxItem,
   CsTextAreaItem,
-  CustomValidationRule,
   CustomValidationRules,
-  NumberValidationRule,
-  StringArrayValidationRule,
-  StringValidationRule,
 } from ".";
 import { Dispatch, SetStateAction, useState } from "react";
 
@@ -113,7 +111,6 @@ export function useCsInputPasswordItem(
 export function useCsTextAreaItem(
   label: string,
   state: StateResult<string>,
-  rule: StringValidationRule,
   readonly: RW = RW.Editable
 ): CsTextAreaItem {
   return useCsItem(CsTextAreaItem, label, state, undefined, readonly);
@@ -151,7 +148,6 @@ export function useCsSelectNumberBoxItem(
 export function useCsRadioBoxItem(
   label: string,
   state: StateResult<string>,
-  rule: StringValidationRule,
   selOpt: SelectOptions | undefined,
   readonly: RW = RW.Editable
 ): CsRadioBoxItem {

@@ -1,10 +1,12 @@
+"use client";
+
 import { BillingTable } from "./billing-table";
 import { useBilling } from "./use-billing";
 
 const Page = () => {
-  const { billing } = useBilling();
+  const { view } = useBilling();
 
-  return <BillingTable billingId={billing?.billingId} />;
+  return <BillingTable view={view} />;
 };
 
 export default Page;
