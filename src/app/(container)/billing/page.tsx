@@ -4,9 +4,9 @@ import { BillingTable } from "./billing-table";
 import { useBilling } from "./use-billing";
 
 const Page = () => {
-  const { view } = useBilling();
+  const billing = useBilling();
 
-  return <BillingTable view={view} />;
+  return <BillingTable {...billing} />;
 };
 
 export default Page;

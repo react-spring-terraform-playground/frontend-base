@@ -29,17 +29,43 @@ export const useBilling = () => {
 
   const [table, setTable] = useState<BillingTable[]>([]);
 
-  const handleBillingId = (index: number, value: BillingForm) => {
-    setTable(
-      table.map((t, i) => {
-        if (i === index) {
-          return;
-        } else {
-          return t;
-        }
-      })
-    );
+  const handleBillingId = (index: number) => {
+    const func = (value?: string) => {
+      setTable(
+        table.map((t, i) =>
+          i === index ? { ...t, billingId: value ?? "" } : t
+        )
+      );
+    };
+    return func;
+  };
+  const handleBillingName = (index: number) => {
+    const func = (value: string) => {
+      setTable(
+        table.map((t, i) => (i === index ? { ...t, billingName: value } : t))
+      );
+    };
+    return func;
+  };
+  const handlePhone = (index: number) => {
+    const func = (value: string) => {
+      setTable(table.map((t, i) => (i === index ? { ...t, phone: value } : t)));
+    };
+    return func;
+  };
+  const handleMail = (index: number) => {
+    const func = (value: string) => {
+      setTable(table.map((t, i) => (i === index ? { ...t, email: value } : t)));
+    };
+    return func;
   };
 
-  return { view };
+  return {
+    view,
+    table,
+    handleBillingId,
+    handleBillingName,
+    handlePhone,
+    handleMail,
+  };
 };
