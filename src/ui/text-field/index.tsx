@@ -129,6 +129,7 @@ export const MxEditCtrl = <T,>(props: MxEditCtrlProps<CsItem<T>>) => {
             <div style={{ width: 100 - labelWidth + "%" }}>
               {renderCtrl(setRefresh)}
             </div>
+            <Typography color="black">{item.fixedValue}</Typography>
           </>
         )}
       </div>
@@ -139,6 +140,7 @@ export const MxEditCtrl = <T,>(props: MxEditCtrlProps<CsItem<T>>) => {
         <MxLabel label={getLabel(item, showRequiredTag)}></MxLabel>
       )}
       {renderCtrl(setRefresh)}
+      <Typography color="black">{item.fixedValue}</Typography>
     </>
   );
 };
@@ -153,15 +155,17 @@ export const MxInputText = (props: MxInputTextProps) => {
     <MxEditCtrl
       mxProps={props}
       renderCtrl={(setRefresh) => (
-        <TextField
-          className={getClassName(props)}
-          value={item.value}
-          inputProps={{ readOnly: item.isReadonly() }}
-          onChange={(e: any) => {
-            item.setValue(e.target.value);
-          }}
-          {...muiProps}
-        />
+        <>
+          <TextField
+            className={getClassName(props)}
+            value={item.value}
+            inputProps={{ readOnly: item.isReadonly() }}
+            onChange={(e: any) => {
+              item.setValue(e.target.value);
+            }}
+            {...muiProps}
+          />
+        </>
       )}
     />
   );

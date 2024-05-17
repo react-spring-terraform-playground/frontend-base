@@ -129,8 +129,11 @@ export type ValueType<T> = T | undefined;
 
 export abstract class CsItem<T> extends CsItemBase {
   value: T | undefined = undefined;
+  fixedValue: string | undefined = undefined;
   protected setValueOpt: SetValueTypeOptional<T> =
     {} as SetValueTypeOptional<T>;
+  protected setFixedValueOpt: SetValueTypeOptional<string> =
+    {} as SetValueTypeOptional<string>;
   init = (label: string, readonly: boolean = false) => {
     this.label = label;
     this.setReadonly(readonly);
@@ -145,6 +148,16 @@ export abstract class CsItem<T> extends CsItemBase {
 
   setValue = (value?: T) => {
     this.setValueOpt(value);
+  };
+
+  setFixedState = (state: StateResult<string>) => {
+    this.fixedValue = state[0];
+    this.setFixedValueOpt = state[1];
+    return this;
+  };
+
+  setFixedValue = (value?: string) => {
+    this.setFixedValueOpt(value);
   };
 }
 
@@ -279,7 +292,7 @@ export class CsInputDateItem extends CsStringItem {
 
 export abstract class CsRangeItem<
   V extends string | number,
-  T extends V[]
+  T extends V[],
 > extends CsItem<T> {
   get lowerValue() {
     if (this.value && this.value.length === 2) {

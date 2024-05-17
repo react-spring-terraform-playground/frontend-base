@@ -27,6 +27,18 @@ export const useBilling = () => {
     mail: useCsTextAreaItem("メールアドレス", useInit("")),
   });
 
+  /**
+   * FIXME: オブジェクト配列対応
+   */
+  // const test = useCsView({
+  //   billingId: useCsTextAreaItem("請求ID", useInit("")),
+  //   billingName: useCsTextAreaItem("請求名", useInit("")),
+  //   phone: useCsTextAreaItem("電話番号", useInit("")),
+  //   mail: useCsTextAreaItem("メールアドレス", useInit("")),
+  // });
+  // const viewTables = [...Array(3)].map(() => test);
+  // viewTables[1].billingName.value
+
   const [table, setTable] = useState<BillingTable[]>([]);
 
   const handleBillingId = (index: number) => {
@@ -60,6 +72,16 @@ export const useBilling = () => {
     return func;
   };
 
+  /**
+   * FIXME: プロパティ増量中
+   */
+  const onClick = () => {
+    view.billingId.setFixedValue("test1");
+    view.billingName.setFixedValue("test2");
+    view.phone.setFixedValue("test3");
+    view.mail.setFixedValue("test4");
+  };
+
   return {
     view,
     table,
@@ -67,5 +89,6 @@ export const useBilling = () => {
     handleBillingName,
     handlePhone,
     handleMail,
+    onClick,
   };
 };

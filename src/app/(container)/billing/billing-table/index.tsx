@@ -11,6 +11,7 @@ import {
   TableBody,
   TextField,
   Stack,
+  Button,
 } from "@mui/material";
 
 type Props = ReturnType<typeof useBilling>;
@@ -22,6 +23,7 @@ export const BillingTable = ({
   handleBillingName,
   handlePhone,
   handleMail,
+  onClick,
 }: Props) => {
   return (
     <>
@@ -82,6 +84,7 @@ export const BillingTable = ({
           </Table>
         </TableContainer>
       </Stack>
+      <Button onClick={onClick}>test</Button>
     </>
   );
 };

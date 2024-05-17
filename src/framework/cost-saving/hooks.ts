@@ -21,11 +21,11 @@ import { Dispatch, SetStateAction, useState } from "react";
 
 export type StateResultOptional<T> = [
   val: T | undefined,
-  setVal: Dispatch<SetStateAction<T | undefined>>
+  setVal: Dispatch<SetStateAction<T | undefined>>,
 ];
 export type StateResultRequired<T> = [
   val: T,
-  setVal: Dispatch<SetStateAction<T>>
+  setVal: Dispatch<SetStateAction<T>>,
 ];
 export type StateResult<T> = StateResultOptional<T>;
 
@@ -77,9 +77,11 @@ export function useCsItem<T, I extends CsItem<T>>(
   selOpt?: SelectOptions | undefined,
   readonly: RW = RW.Editable
 ): I {
+  const fixedState = useInit("");
   const item = new type();
   item.label = label;
   item.setState(state);
+  item.setFixedState(fixedState);
   item.setReadonly(readonly === RW.Readonly);
   return item;
 }
@@ -167,7 +169,7 @@ export function useRangeInit<T extends number | string>(lower?: T, upper?: T) {
   const state = useState<T[]>([lower as T, upper as T]);
   return state as [
     T[] | undefined,
-    Dispatch<React.SetStateAction<T[] | undefined>>
+    Dispatch<React.SetStateAction<T[] | undefined>>,
   ];
 }
 
@@ -202,7 +204,38 @@ export abstract class CsView {
 
 export const useCsView = <
   D extends CsViewDefinition,
-  AppValidationRules extends CustomValidationRules
+  AppValidationRules extends CustomValidationRules,
+>(
+  definitions: D,
+  options: {
+    readonly?: boolean;
+    customValidationRules?: AppValidationRules;
+    validationTrigger?: "onSubmit" | "onBlur";
+  } = {
+    readonly: false,
+    customValidationRules: undefined,
+    validationTrigger: "onSubmit",
+  }
+): CsView & D => {
+  const instance: CsView & D = {
+    ...definitions,
+    readonly: options.readonly ?? false,
+    validateTrigger: options.validationTrigger,
+  };
+
+  Object.entries(definitions).forEach(([key, value]) => {
+    if (value instanceof CsItemBase) {
+      value.key = key;
+      value.parentView = instance;
+    }
+  });
+
+  return instance;
+};
+
+export const useCsViews = <
+  D extends CsViewDefinition,
+  AppValidationRules extends CustomValidationRules,
 >(
   definitions: D,
   options: {
