@@ -30,14 +30,15 @@ export const useBilling = () => {
   /**
    * FIXME: オブジェクト配列対応
    */
-  // const test = useCsView({
-  //   billingId: useCsTextAreaItem("請求ID", useInit("")),
-  //   billingName: useCsTextAreaItem("請求名", useInit("")),
-  //   phone: useCsTextAreaItem("電話番号", useInit("")),
-  //   mail: useCsTextAreaItem("メールアドレス", useInit("")),
-  // });
-  // const viewTables = [...Array(3)].map(() => test);
+  const test = useCsView({
+    billingId: useCsTextAreaItem("請求ID", useInit("")),
+    billingName: useCsTextAreaItem("請求名", useInit("")),
+    phone: useCsTextAreaItem("電話番号", useInit("")),
+    mail: useCsTextAreaItem("メールアドレス", useInit("")),
+  });
+  const viewTables = [...Array(3)].map(() => test);
   // viewTables[1].billingName.value
+  // 配列用のTableViewを作る
 
   const [table, setTable] = useState<BillingTable[]>([]);
 
@@ -90,5 +91,6 @@ export const useBilling = () => {
     handlePhone,
     handleMail,
     onClick,
+    viewTables,
   };
 };

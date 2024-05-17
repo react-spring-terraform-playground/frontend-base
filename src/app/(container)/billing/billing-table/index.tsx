@@ -24,6 +24,7 @@ export const BillingTable = ({
   handlePhone,
   handleMail,
   onClick,
+  viewTables,
 }: Props) => {
   return (
     <>
@@ -51,6 +52,60 @@ export const BillingTable = ({
                       value={table[i]?.billingId}
                       onChange={() => {
                         handleBillingId(i);
+                      }}
+                    />
+                  </TableCell>
+                  <TableCell>
+                    <TextField
+                      value={table[i]?.billingName}
+                      onChange={() => {
+                        handleBillingName(i);
+                      }}
+                    />
+                  </TableCell>
+                  <TableCell>
+                    <TextField
+                      value={table[i]?.phone}
+                      onChange={() => {
+                        handlePhone(i);
+                      }}
+                    />
+                  </TableCell>
+                  <TableCell>
+                    <TextField
+                      value={table[i]?.mail}
+                      onChange={() => {
+                        handleMail(i);
+                      }}
+                    />
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+
+        <TableContainer component={Paper}>
+          <Table aria-label="simple table">
+            <TableHead sx={{ bgcolor: "#e6e6fa" }}>
+              <TableRow>
+                <TableCell>請求ID</TableCell>
+                <TableCell>請求名</TableCell>
+                <TableCell>電話番号</TableCell>
+                <TableCell>メールアドレス</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {viewTables.map((row, i) => (
+                <TableRow
+                  key={i}
+                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                >
+                  <TableCell>
+                    <TextField
+                      value={row.billingId}
+                      onChange={() => {
+                        row.billingId.setValue("test");
                       }}
                     />
                   </TableCell>
